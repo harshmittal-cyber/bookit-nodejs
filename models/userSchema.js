@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken')
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -19,6 +20,14 @@ const userSchema = new mongoose.Schema({
 }, {
     timestamps: true
 })
+
+//JWT Token
+userSchema.methods.getJWTToken = function () {
+    return jwt.sign({ id: this._id }, process.env.JWT_USER_SECRET, {
+        expiresIn: process.env.JWT_USER_EXPIRE
+    })
+}
+
 
 const user = mongoose.model('User', userSchema);
 
