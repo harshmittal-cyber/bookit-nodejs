@@ -16,6 +16,7 @@ exports.register = catchAsyncErrors(async (req, res) => {
 
 exports.login = catchAsyncErrors(async (req, res) => {
     const user = await Admin.findOne({ email: req.body.email });
+    // sjkbckks
     if (user) {
         const token = await user.getJWTToken();
         return res.status(200).json({
