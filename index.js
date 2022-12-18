@@ -7,6 +7,9 @@ const port = 4000;
 require('dotenv').config()
 const database = require('./config/database')
 const errorMiddleware = require('./middleware/error');
+const paymentRoutes = require('./routes/paymentRoute');
+const adminRoutes = require('./routes/adminRoute')
+
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
@@ -33,6 +36,9 @@ app.use(errorMiddleware);
 app.get('/', (req, res) => {
     res.send('Hi i am bookit')
 })
+
+app.use('/api/payment', paymentRoutes);
+app.use('/api/admin', adminRoutes)
 
 app.listen(port, () => {
     console.log(`Server is working on ${port}`);

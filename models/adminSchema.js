@@ -1,31 +1,28 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken')
 
-const userSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-    },
+const adminSchema = new mongoose.Schema({
     email: {
         type: String,
-        required: true,
+        required: [true, "Email Field is required"],
         unique: true
     },
-    phone: {
+    password: {
         type: String,
-        required: true,
-        unique: true
+        required: [true, "Please Enter Your Password"],
     }
+
 
 }, {
     timestamps: true
 })
 
 //JWT Token
-userSchema.methods.getJWTToken = function () {
+adminSchema.methods.getJWTToken = function () {
     return jwt.sign({ id: this._id }, process.env.JWT_USER_SECRET, {
         expiresIn: process.env.JWT_USER_EXPIRE
     })
 }
 
-module.exports = mongoose.model('User', userSchema);
+
+module.exports = mongoose.model('admin', adminSchema);
