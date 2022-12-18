@@ -3,7 +3,7 @@ const app = express();
 const cookieParser = require('cookie-parser')
 const bodyParser = require("body-parser")
 const cors = require("cors");
-const port = 4000;
+const port = process.env.PORT || 4000;
 require('dotenv').config()
 const database = require('./config/database')
 const errorMiddleware = require('./middleware/error');
